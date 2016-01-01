@@ -1,0 +1,5 @@
+*~
+.spyder*
+*.pdf
+*.bmp
+__pycache__/*
