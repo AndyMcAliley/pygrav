@@ -38,9 +38,10 @@ def sens2d( xnodes,znodes,xlocs,zlocs ):
             irow+=1
     return sens2D
     
-def plotmat(mat):
-    mat=np.reshape(mat,(4,4)).T
-    fig = plt.figure()
+def plotmat(mat,dims,title,fignum):
+    mat=np.reshape(mat,dims).T
+    fig = plt.figure(fignum)
+    fig.suptitle(title)
     ax = fig.add_subplot(1,1,1)
     ax.set_aspect('equal')
     plt.imshow(mat,interpolation='nearest',vmin=-1,vmax=1)#,cmap=plt.cm.Blues)
@@ -51,11 +52,14 @@ def plotmat(mat):
 #mesh
 xnodes=np.arange(0,801,200)
 znodes=np.arange(0,801,200)
+nxcells=len(xnodes)-1
+nzcells=len(znodes)-1
 
 #data locations
 #xlocs=[290,390,490,590]
 xlocs=np.arange(0,801,100)
 zlocs=[-50]
+n=len(xlocs)*len(zlocs)
 
 G=sens2d(xnodes,znodes,xlocs,zlocs)
 
@@ -67,10 +71,11 @@ G=sens2d(xnodes,znodes,xlocs,zlocs)
 #Perform SVD
 U,s,V = np.linalg.svd(G,full_matrices=True)
 
-irow=0
+dims=(nxcells,nzcells)
+irow=1
 for row in V:
-    print(irow)
-    plotmat(row)
+    title="".join(('Eigenvector ',str(irow),' of ',str(n)))
+    plotmat( row,dims,title,irow )
     irow+=1
 
 #if __name__=='__main__':
