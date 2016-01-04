@@ -38,15 +38,14 @@ def sens2d( xnodes,znodes,xlocs,zlocs ):
             irow+=1
     return sens2D
     
-def plotmat(mat,dims,title,fignum):
-    mat=np.reshape(mat,dims).T
+def plotmat(mat,title,fignum):
     fig = plt.figure(fignum)
     fig.suptitle(title)
     ax = fig.add_subplot(1,1,1)
     ax.set_aspect('equal')
     plt.imshow(mat,interpolation='nearest',vmin=-1,vmax=1)#,cmap=plt.cm.Blues)
     plt.colorbar()
-    plt.show()
+    plt.savefig(title+'.png',bbox_inches='tight')
 
 #def main():
 #mesh
@@ -72,11 +71,20 @@ G=sens2d(xnodes,znodes,xlocs,zlocs)
 U,s,V = np.linalg.svd(G,full_matrices=True)
 
 dims=(nxcells,nzcells)
-irow=1
-for row in V:
-    title="".join(('Eigenvector ',str(irow),' of ',str(n)))
-    plotmat( row,dims,title,irow )
-    irow+=1
+#irow=1
+#for row in V:
+#    title="".join(('Eigenvector ',str(irow),' of ',str(n)))
+#    plotmat( np.reshape(row,dims).T,title,irow )
+#    irow+=1
+
+#Test slider dealy
+model=np.zeros(dims)
+model[1,1]=2
+model[2,1]=0.5
+null0=np.reshape(V[9],dims).T
+
+import NullSpaceSlider as ns
+ns.nsslider(model,null0)
 
 #if __name__=='__main__':
 #    main()

@@ -2,4 +2,5 @@
 .spyder*
 *.pdf
 *.bmp
+*.png
 __pycache__/*
