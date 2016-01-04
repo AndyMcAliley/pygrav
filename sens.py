@@ -45,7 +45,7 @@ def plotmat(mat,title,fignum):
     ax.set_aspect('equal')
     plt.imshow(mat,interpolation='nearest',vmin=-1,vmax=1)#,cmap=plt.cm.Blues)
     plt.colorbar()
-    plt.savefig(title+'.png',bbox_inches='tight')
+#    plt.savefig(title+'.png',bbox_inches='tight')
 
 #def main():
 #mesh
@@ -53,6 +53,7 @@ xnodes=np.arange(0,801,200)
 znodes=np.arange(0,801,200)
 nxcells=len(xnodes)-1
 nzcells=len(znodes)-1
+dims=(nxcells,nzcells)
 
 #data locations
 #xlocs=[290,390,490,590]
@@ -69,22 +70,41 @@ G=sens2d(xnodes,znodes,xlocs,zlocs)
     
 #Perform SVD
 U,s,V = np.linalg.svd(G,full_matrices=True)
+degFreedom=nxcells*nzcells-len(s)
 
-dims=(nxcells,nzcells)
+#Plot all singular vectors
+irow=1
+for row in V:
+    title="".join(('Vector ',str(irow),' of ',str(n)))
+    plotmat( np.reshape(row,dims).T,title,irow )
+    irow+=1
+    
+
+
+#Test sliders
+
+#form list of matrices shaped appropriately
+nullVectors=V[-degFreedom:]
+nullSpace=[]
+for row in nullVectors:
+    nullMat=np.reshape(row,dims).T
+    nullSpace.append(nullMat)
+
+##Plot null vectors only
 #irow=1
-#for row in V:
-#    title="".join(('Eigenvector ',str(irow),' of ',str(n)))
-#    plotmat( np.reshape(row,dims).T,title,irow )
-#    irow+=1
-
-#Test slider dealy
+#for mat in nullSpace:
+#    title="".join(('Vector ',str(irow),' of ',str(degFreedom)))
+#    plotmat( mat,title,irow )
+#    irow+=1    
+    
+#test model
 model=np.zeros(dims)
 model[1,1]=2
 model[2,1]=0.5
-null0=np.reshape(V[13],dims).T
-
+#null0=np.reshape(V[13],dims).T
+#bad place for an import!
 import NullSpaceSlider as ns
-ns.nsslider(model,null0)
+ns.nsslider(model,nullSpace)
 
 #if __name__=='__main__':
 #    main()
