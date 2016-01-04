@@ -56,7 +56,7 @@ nzcells=len(znodes)-1
 
 #data locations
 #xlocs=[290,390,490,590]
-xlocs=np.arange(0,801,100)
+xlocs=np.arange(0,801,66.667)
 zlocs=[-50]
 n=len(xlocs)*len(zlocs)
 
@@ -81,7 +81,7 @@ dims=(nxcells,nzcells)
 model=np.zeros(dims)
 model[1,1]=2
 model[2,1]=0.5
-null0=np.reshape(V[9],dims).T
+null0=np.reshape(V[13],dims).T
 
 import NullSpaceSlider as ns
 ns.nsslider(model,null0)
