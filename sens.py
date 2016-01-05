@@ -5,9 +5,9 @@ Created on Sat Jan  2 16:43:28 2016
 @author: WAM
 """
 
-import math
-import scipy as sc
-import scipy.sparse as sparse
+#import math
+#import scipy as sc
+#import scipy.sparse as sparse
 import numpy as np
 import matplotlib.pylab as plt
 import grav
@@ -43,6 +43,7 @@ def plotmat(mat,title,fignum):
     fig.suptitle(title)
     ax = fig.add_subplot(1,1,1)
     ax.set_aspect('equal')
+    #TODO: try using axes_grid
     plt.imshow(mat,interpolation='nearest',vmin=-1,vmax=1)#,cmap=plt.cm.Blues)
     plt.colorbar()
 #    plt.savefig(title+'.png',bbox_inches='tight')
@@ -57,7 +58,8 @@ dims=(nxcells,nzcells)
 
 #data locations
 #xlocs=[290,390,490,590]
-xlocs=np.arange(0,801,66.667)
+n=10
+xlocs=np.linspace(0,800,num=n)
 zlocs=[-50]
 n=len(xlocs)*len(zlocs)
 
@@ -72,12 +74,12 @@ G=sens2d(xnodes,znodes,xlocs,zlocs)
 U,s,V = np.linalg.svd(G,full_matrices=True)
 degFreedom=nxcells*nzcells-len(s)
 
-#Plot all singular vectors
-irow=1
-for row in V:
-    title="".join(('Vector ',str(irow),' of ',str(n)))
-    plotmat( np.reshape(row,dims).T,title,irow )
-    irow+=1
+##Plot all singular vectors
+#irow=1
+#for row in V:
+#    title="".join(('Vector ',str(irow),' of ',str(n)))
+#    plotmat( np.reshape(row,dims).T,title,irow )
+#    irow+=1
     
 
 

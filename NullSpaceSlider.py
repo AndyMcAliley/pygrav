@@ -12,7 +12,6 @@ def nsslider(mat,nullspace):
     numVectors=len(nullspace)
     sliderHeight=0.05
     
-    
     fig = plt.figure()
 #    fig.suptitle(title)
     ax = fig.add_subplot(1,1,1)

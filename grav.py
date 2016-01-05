@@ -6,7 +6,6 @@ Tools to form sensitivity matrices for 2D and 3D gravity problems.
 """
 
 import math
-import scipy as sc
 import scipy.sparse as sparse
 import numpy as np
 
