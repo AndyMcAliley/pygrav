@@ -43,7 +43,7 @@ def plotmat(mat,title,fignum):
     fig.suptitle(title)
     ax = fig.add_subplot(1,1,1)
     ax.set_aspect('equal')
-    #TODO: try using axes_grid
+    #TODO: try using pcolormesh
     plt.imshow(mat,interpolation='nearest',vmin=-1,vmax=1)#,cmap=plt.cm.Blues)
     plt.colorbar()
 #    plt.savefig(title+'.png',bbox_inches='tight')
@@ -74,16 +74,19 @@ G=sens2d(xnodes,znodes,xlocs,zlocs)
 U,s,V = np.linalg.svd(G,full_matrices=True)
 degFreedom=nxcells*nzcells-len(s)
 
+#form list of matrices shaped appropriately
+#All right singular vectors
+rSpace=[]
+for row in V:
+    rMat=np.reshape(row,dims).T
+    rSpace.append(rMat)
+
 ##Plot all singular vectors
 #irow=1
-#for row in V:
+#for rMat in rSpace:
 #    title="".join(('Vector ',str(irow),' of ',str(n)))
-#    plotmat( np.reshape(row,dims).T,title,irow )
+#    plotmat( rMat,title,irow )
 #    irow+=1
-    
-
-
-#Test sliders
 
 #form list of matrices shaped appropriately
 nullVectors=V[-degFreedom:]
@@ -99,6 +102,7 @@ for row in nullVectors:
 #    plotmat( mat,title,irow )
 #    irow+=1    
     
+#Test sliders
 #test model
 model=np.zeros(dims)
 model[1,1]=2
@@ -106,7 +110,7 @@ model[2,1]=0.5
 #null0=np.reshape(V[13],dims).T
 #bad place for an import!
 import NullSpaceSlider as ns
-ns.nsslider(model,nullSpace)
+ns.interactiveModel(model,rSpace,s,G,xnodes,znodes,xlocs,1)
 
 #if __name__=='__main__':
 #    main()
