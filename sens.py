@@ -44,7 +44,8 @@ def plotmat(mat,title,fignum):
     ax = fig.add_subplot(1,1,1)
     ax.set_aspect('equal')
     #TODO: try using pcolormesh
-    plt.imshow(mat,interpolation='nearest',vmin=-1,vmax=1)#,cmap=plt.cm.Blues)
+#    plt.imshow(mat,interpolation='nearest',vmin=-1,vmax=1)#,cmap=plt.cm.Blues)
+    plt.imshow(mat,interpolation='nearest',vmin=0,vmax=1)
     plt.colorbar()
 #    plt.savefig(title+'.png',bbox_inches='tight')
 
@@ -69,10 +70,26 @@ G=sens2d(xnodes,znodes,xlocs,zlocs)
 
 #for row in G:
 #    plotmat(row)
+
+#include noise
+sd=0.5
+WD=np.identity(n)/sd
+G=np.dot(WD,G)
     
 #Perform SVD
 U,s,V = np.linalg.svd(G,full_matrices=True)
 degFreedom=nxcells*nzcells-len(s)
+
+#plot diagonal of smallest model Tikhonov resolution matrix
+#Don't need full SVD to do this
+ssquared=s*s
+butterworth=ssquared/(ssquared+1)
+butterworth=np.append(butterworth,[0]*degFreedom)
+res=V*V
+res=(res.T*butterworth).T
+res=np.sum(res,0)
+res=np.reshape(res,dims).T
+plotmat(res,'Min Norm Tik Resolution Matrix',99)
 
 #form list of matrices shaped appropriately
 #All right singular vectors
@@ -110,7 +127,7 @@ model[2,1]=0.5
 #null0=np.reshape(V[13],dims).T
 #bad place for an import!
 import NullSpaceSlider as ns
-ns.interactiveModel(model,rSpace,s,G,xnodes,znodes,xlocs,1)
+ns.interactiveModel(model,rSpace,s,G,xnodes,znodes,xlocs,sd)
 
 #if __name__=='__main__':
 #    main()
