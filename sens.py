@@ -124,6 +124,8 @@ for row in nullVectors:
 model=np.zeros(dims)
 model[1,1]=2
 model[2,1]=0.5
+#inversion result
+#model=np.linalg.solve(np.dot(G.T,G)+beta*np.identity(m),np.dot(G.T,data))
 #null0=np.reshape(V[13],dims).T
 #bad place for an import!
 import NullSpaceSlider as ns
