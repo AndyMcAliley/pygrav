@@ -61,12 +61,12 @@ def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations
         ax0 = plt.axes([0.9-sliderWidth, sliderAxisHeight*(numVectors-i+2), sliderWidth, sliderHeight], axisbg='lightgoldenrodyellow')
 #        sliders[i]=Slider(ax0,'Vector '+str(i+1),-6,6,valinit=c[i])
         labelstr='s={0:.2g}'.format(singularValues[i])
-        sliders[i]=Slider(ax0,labelstr,-6,6,valinit=c[i])
+        sliders[i]=Slider(ax0,labelstr,-9,9,valinit=c[i])
         sliders[i].on_changed(update)
     for i in range(rank,numVectors):
         ax0 = plt.axes([0.9-sliderWidth, sliderAxisHeight*(numVectors-i+1), sliderWidth, sliderHeight], axisbg='lightgray')
 #        sliders[i]=Slider(ax0,'Vector '+str(i+1),-6,6,valinit=c[i])
-        sliders[i]=Slider(ax0,'s=0',-6,6,valinit=c[i])
+        sliders[i]=Slider(ax0,'s=0',-9,9,valinit=c[i])
         sliders[i].on_changed(update)
         
     def resetSliders(self):

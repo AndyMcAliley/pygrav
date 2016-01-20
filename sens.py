@@ -59,7 +59,7 @@ dims=(nxcells,nzcells)
 
 #data locations
 #xlocs=[290,390,490,590]
-n=10
+n=14
 xlocs=np.linspace(0,800,num=n)
 zlocs=[-50]
 n=len(xlocs)*len(zlocs)
