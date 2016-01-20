@@ -98,6 +98,32 @@ def spFD1D(n):
     e[0]=-e[0]
     mat=sparse.diags(e,[0,1],shape=[n-1,n])
     return mat
+    
+def sens2d( xnodes,znodes,xlocs,zlocs ):
+    #get number of data and model cells
+    n=len(xlocs)*len(zlocs)
+    nxcells=len(xnodes)-1
+    nzcells=len(znodes)-1
+    m=(nxcells)*(nzcells)
+    #initialize sensitivity matrix
+    sens2D=np.zeros((n,m))
+    #sens3D=np.zeros((n,m))
+    #for sens3D, to approximate infinite dimension
+    #yn=[-10000,10000]
+    irow=0
+    #for xloc in np.nditer(xlocs):
+    for xloc in xlocs:
+        xnodesshifted=xnodes-xloc
+        for zloc in zlocs:
+            znodesshifted=znodes-zloc
+            sens2D[irow]=g_2dmesh( xnodesshifted,znodesshifted )
+    #        for ix in range(0,nxcells):
+    #            xn=xnodesshifted[ix:ix+2]
+    #            for iz in range(0,nzcells):
+    #                zn=znodesshifted[iz:iz+2]
+    #                sens3D[irow,iz+ix*nzcells]=grav.g_3drect( xn,yn,zn )
+            irow+=1
+    return sens2D
 
 def main():
     #test

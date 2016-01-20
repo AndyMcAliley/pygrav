@@ -11,32 +11,6 @@ Created on Sat Jan  2 16:43:28 2016
 import numpy as np
 import matplotlib.pylab as plt
 import grav
-
-def sens2d( xnodes,znodes,xlocs,zlocs ):
-    #get number of data and model cells
-    n=len(xlocs)*len(zlocs)
-    nxcells=len(xnodes)-1
-    nzcells=len(znodes)-1
-    m=(nxcells)*(nzcells)
-    #initialize sensitivity matrix
-    sens2D=np.zeros((n,m))
-    #sens3D=np.zeros((n,m))
-    #for sens3D, to approximate infinite dimension
-    #yn=[-10000,10000]
-    irow=0
-    #for xloc in np.nditer(xlocs):
-    for xloc in xlocs:
-        xnodesshifted=xnodes-xloc
-        for zloc in zlocs:
-            znodesshifted=znodes-zloc
-            sens2D[irow]=grav.g_2dmesh( xnodesshifted,znodesshifted )
-    #        for ix in range(0,nxcells):
-    #            xn=xnodesshifted[ix:ix+2]
-    #            for iz in range(0,nzcells):
-    #                zn=znodesshifted[iz:iz+2]
-    #                sens3D[irow,iz+ix*nzcells]=grav.g_3drect( xn,yn,zn )
-            irow+=1
-    return sens2D
     
 def plotmat(mat,title,fignum):
     fig = plt.figure(fignum)
@@ -64,7 +38,7 @@ xlocs=np.linspace(0,800,num=n)
 zlocs=[-50]
 n=len(xlocs)*len(zlocs)
 
-G=sens2d(xnodes,znodes,xlocs,zlocs)
+G=grav.sens2d(xnodes,znodes,xlocs,zlocs)
 
 #plot sensitivity of model to each datum
 
