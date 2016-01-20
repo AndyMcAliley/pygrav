@@ -7,14 +7,16 @@ Created on Mon Jan  4 09:50:48 2016
 import numpy as np
 import matplotlib.pylab as plt
 from matplotlib.widgets import Slider
+from matplotlib.widgets import Button
 
-def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations,errors):
+def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations,errors,modelmin):
     numCells=mat.size
     rank=len(singularValues)
     numVectors=len(vectors)
     sliderAxisHeight=0.8/(numVectors+1)
     sliderHeight=0.6*sliderAxisHeight
     sliderWidth=0.25
+    buttonWidth=0.15
     
     #Calculate Data
     model=np.reshape(mat.T,(numCells))
@@ -38,11 +40,14 @@ def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations
     plt.axis('off')
     #initial slider values and list of sliders
     c=[0]*numVectors
+    for i in range(0,numVectors):
+        c[i]=np.tensordot(mat,vectors[i],axes=2)
     sliders=[None]*numVectors
     
     #executes when a slider value changes
     def update(val):
-        pltmat=np.copy(mat)
+#        pltmat=np.copy(mat)
+        pltmat=np.zeros(mat.shape)
         for i in range(0,numVectors):
             pltmat+=sliders[i].val*vectors[i]
         modelplot.set_data(pltmat)
@@ -63,6 +68,14 @@ def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations
 #        sliders[i]=Slider(ax0,'Vector '+str(i+1),-6,6,valinit=c[i])
         sliders[i]=Slider(ax0,'s=0',-6,6,valinit=c[i])
         sliders[i].on_changed(update)
+        
+    def resetSliders(self):
+        for sl in sliders:
+            sl.reset()
+    #set reset button
+    ax0=plt.axes([0.9-buttonWidth,sliderAxisHeight,buttonWidth,sliderHeight])
+    reset=Button(ax0,'Reset model')
+    reset.on_clicked(resetSliders)
         
     plt.show()
     

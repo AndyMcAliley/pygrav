@@ -88,7 +88,7 @@ Vecon=V[:rank,:]
 res=np.dot(Vecon.T,Vecon)
 res=np.diag(res)
 res=np.reshape(res,dims).T
-plotmat(res,'Diagonal of Resolution Matrix',98)
+#plotmat(res,'Diagonal of Resolution Matrix',98)
 
 #plot complement of the above plot
 #measure of how much each model cell is controlled by 
@@ -97,7 +97,7 @@ Vnull=V[-degFreedom:,:]
 nullres=np.dot(Vnull.T,Vnull)
 nullres=np.diag(nullres)
 nullres=np.reshape(nullres,dims).T
-plotmat(nullres,'Complement of Diagonal of Resolution Matrix',97)
+#plotmat(nullres,'Complement of Diagonal of Resolution Matrix',97)
 
 #plot diagonal of smallest model Tikhonov resolution matrix
 #for beta=1
@@ -110,7 +110,7 @@ tikres=V*V
 tikres=(tikres.T*butterworth).T
 tikres=np.sum(tikres,0)
 tikres=np.reshape(tikres,dims).T
-plotmat(tikres,'Min Norm Tik Resolution Matrix',99)
+#plotmat(tikres,'Min Norm Tik Resolution Matrix',99)
 
 #form list of matrices shaped appropriately
 #All right singular vectors
@@ -145,12 +145,13 @@ for row in nullVectors:
 model=np.zeros(dims)
 model[1,1]=2
 model[2,1]=0.5
+modelmin=-2.67
 #inversion result
 #model=np.linalg.solve(np.dot(G.T,G)+beta*np.identity(m),np.dot(G.T,data))
 #null0=np.reshape(V[13],dims).T
 #bad place for an import!
 import NullSpaceSlider as ns
-ns.interactiveModel(model,rSpace,s,G,xnodes,znodes,xlocs,sd)
+ns.interactiveModel(model,rSpace,s,G,xnodes,znodes,xlocs,sd,modelmin)
 
 #if __name__=='__main__':
 #    main()
