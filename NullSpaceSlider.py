@@ -10,28 +10,30 @@ import matplotlib.pylab as plt
 from matplotlib.widgets import Slider
 from matplotlib.widgets import Button
 
-def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations,errors,modelmin):
-    numCells=mat.size
+def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations,noise,sd,modelmin):
+    (numData,numCells)=sens.shape
     rank=len(singularValues)
     numVectors=len(vectors)
-    sliderAxisHeight=0.8/(numVectors+1)
+    sliderAxisHeight=.9/(numVectors+1)
     sliderHeight=0.6*sliderAxisHeight
     sliderWidth=0.25
     buttonWidth=0.15
     sliderMax=15
     sliderMin=-15
     colorbarMax=6
-    colorbarMin=-3
+    colorbarMin=-6
     
     #Calculate Data
     model=np.reshape(mat.T,(numCells))
-    data=sens.dot(model)
+    truedata=sens.dot(model)
+    noisydata=truedata+noise
     
     fig = plt.figure()
 #    fig.suptitle(title)
     #plot data
     dataSubplot = fig.add_subplot(2,2,1)
-    plt.errorbar(dataLocations,data,yerr=errors)
+    plt.errorbar(dataLocations,noisydata,yerr=sd*2)#*numData**(0.5))
+    data=np.copy(truedata)
     dataplot=plt.plot(dataLocations,data)
 #    plt.axis('off')
     
@@ -76,6 +78,19 @@ def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations
         data=sens.dot(model)
         #plot data
         plt.setp(dataplot,'ydata',data)
+        #calculate data misfit
+        phid=np.linalg.norm((data-truedata)/sd)**2
+        #change border if data misfit is greater than expected
+        if phid > numData:
+            databordercolor='red'
+            databorderwidth=4
+        else:
+            databordercolor='black'
+            databorderwidth=1
+        for child in dataSubplot.get_children():
+            if isinstance(child,sp.Spine):
+                child.set_color(databordercolor)
+                child.set_linewidth(databorderwidth)
         plt.draw()
     
     #set sliders in figure
@@ -96,7 +111,7 @@ def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations
             sl.reset()
     #set reset button
     ax0=plt.axes([0.9-buttonWidth,sliderAxisHeight,buttonWidth,sliderHeight])
-    reset=Button(ax0,'Reset model')
+    reset=Button(ax0,'True model')
     reset.on_clicked(resetSliders)
         
     plt.show()

@@ -29,16 +29,17 @@ xnodes=np.arange(0,801,200)
 znodes=np.arange(0,801,200)
 nxcells=len(xnodes)-1
 nzcells=len(znodes)-1
-dims=(nxcells,nzcells)
+dimsT=(nxcells,nzcells)
+dims=(nzcells,nxcells)
 
 #data locations
 #xlocs=[290,390,490,590]
-n=10
-xlocs=np.linspace(0,800,num=n)
+n=6
+xlocs=np.linspace(50,750,num=n)
 zlocs=[-50]
 n=len(xlocs)*len(zlocs)
 
-G=grav.sens2d(xnodes,znodes,xlocs,zlocs)
+Gorig=grav.sens2d(xnodes,znodes,xlocs,zlocs)
 
 #plot sensitivity of model to each datum
 
@@ -46,9 +47,9 @@ G=grav.sens2d(xnodes,znodes,xlocs,zlocs)
 #    plotmat(row)
 
 #include noise
-sd=0.5
+sd=0.2
 WD=np.identity(n)/sd
-G=np.dot(WD,G)
+G=np.dot(WD,Gorig)
     
 #Perform SVD
 U,s,V = np.linalg.svd(G,full_matrices=True)
@@ -61,7 +62,7 @@ Vecon=V[:rank,:]
 #G's row space (1 minus measure of same for null space)
 res=np.dot(Vecon.T,Vecon)
 res=np.diag(res)
-res=np.reshape(res,dims).T
+res=np.reshape(res,dimsT).T
 #plotmat(res,'Diagonal of Resolution Matrix',98)
 
 #plot complement of the above plot
@@ -70,7 +71,7 @@ res=np.reshape(res,dims).T
 Vnull=V[-degFreedom:,:]
 nullres=np.dot(Vnull.T,Vnull)
 nullres=np.diag(nullres)
-nullres=np.reshape(nullres,dims).T
+nullres=np.reshape(nullres,dimsT).T
 #plotmat(nullres,'Complement of Diagonal of Resolution Matrix',97)
 
 #plot diagonal of smallest model Tikhonov resolution matrix
@@ -83,14 +84,14 @@ butterworth=np.append(butterworth,[0]*degFreedom)
 tikres=V*V
 tikres=(tikres.T*butterworth).T
 tikres=np.sum(tikres,0)
-tikres=np.reshape(tikres,dims).T
+tikres=np.reshape(tikres,dimsT).T
 #plotmat(tikres,'Min Norm Tik Resolution Matrix',99)
 
 #form list of matrices shaped appropriately
 #All right singular vectors
 rSpace=[]
 for row in V:
-    rMat=np.reshape(row,dims).T
+    rMat=np.reshape(row,dimsT).T
     rSpace.append(rMat)
 
 ##Plot all singular vectors
@@ -104,7 +105,7 @@ for row in V:
 nullVectors=V[-degFreedom:]
 nullSpace=[]
 for row in nullVectors:
-    nullMat=np.reshape(row,dims).T
+    nullMat=np.reshape(row,dimsT).T
     nullSpace.append(nullMat)
 
 ##Plot null vectors only
@@ -125,7 +126,8 @@ modelmin=-2.67
 #null0=np.reshape(V[13],dims).T
 #bad place for an import!
 import NullSpaceSlider as ns
-ns.interactiveModel(model,rSpace,s,G,xnodes,znodes,xlocs,sd,modelmin)
+noise=np.random.normal(0,sd,n)
+ns.interactiveModel(model,rSpace,s,G,xnodes,znodes,xlocs,noise,sd,modelmin)
 
 #if __name__=='__main__':
 #    main()
