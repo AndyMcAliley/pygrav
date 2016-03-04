@@ -17,7 +17,7 @@ def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations
     sliderAxisHeight=.9/(numVectors+1)
     sliderHeight=0.6*sliderAxisHeight
     sliderWidth=0.25
-    buttonWidth=0.15
+    buttonWidth=0.12
     sliderMax=15
     sliderMin=-15
     colorbarMax=6
@@ -113,6 +113,14 @@ def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations
     ax0=plt.axes([0.9-buttonWidth,sliderAxisHeight,buttonWidth,sliderHeight])
     reset=Button(ax0,'True model')
     reset.on_clicked(resetSliders)
-        
+    
+    def zeroSliders(self):
+        for sl in sliders:
+            sl.set_val(0)
+    #set zero button
+    ax1=plt.axes([0.88-2*buttonWidth,sliderAxisHeight,buttonWidth,sliderHeight])
+    zero=Button(ax1,'Zero model')
+    zero.on_clicked(zeroSliders)
+    
     plt.show()
     
