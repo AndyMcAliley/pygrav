@@ -1,0 +1,80 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Button	.\NullSpaceSlider.py	/^from matplotlib.widgets import Button$/;"	i
+G	.\toy.py	/^G=np.dot(WD,Gorig)$/;"	v
+Gorig	.\toy.py	/^Gorig=grav.sens2d(xnodes,znodes,xlocs,zlocs)$/;"	v
+Slider	.\NullSpaceSlider.py	/^from matplotlib.widgets import Slider$/;"	i
+Vecon	.\toy.py	/^Vecon=V[:rank,:]$/;"	v
+Vnull	.\toy.py	/^Vnull=V[-degFreedom:,:]$/;"	v
+WD	.\toy.py	/^WD=np.identity(n)\/sd$/;"	v
+beta	.\toy.py	/^beta=1$/;"	v
+butterworth	.\toy.py	/^butterworth=np.append(butterworth,[0]*degFreedom)$/;"	v
+butterworth	.\toy.py	/^butterworth=ssquared\/(ssquared+beta)$/;"	v
+degFreedom	.\toy.py	/^degFreedom=nxcells*nzcells-rank$/;"	v
+dims	.\toy.py	/^dims=(nzcells,nxcells)$/;"	v
+dimsT	.\toy.py	/^dimsT=(nxcells,nzcells)$/;"	v
+g_2dmesh	.\grav.py	/^def g_2dmesh( xnodes,znodes ):$/;"	f
+g_2drect	.\grav.py	/^def g_2drect( xlims,zlims ):$/;"	f
+g_3drect	.\grav.py	/^def g_3drect( xlims,ylims,zlims ):$/;"	f
+gamma	.\grav.py	/^gamma=6.67384e-3$/;"	v
+gc2d	.\grav.py	/^def gc2d( x,z ):$/;"	f
+gc3d	.\grav.py	/^def gc3d( x,y,z ):$/;"	f
+grav	.\toy.py	/^import grav$/;"	i
+interactiveModel	.\NullSpaceSlider.py	/^def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations,noise,sd,modelmin):$/;"	f
+invert2D	.\invert.py	/^def invert2D(data,mref,dx,dz,std,beta):$/;"	f
+main	.\grav.py	/^def main():$/;"	f
+math	.\grav.py	/^import math$/;"	i
+matplotlib	.\NullSpaceSlider.py	/^import matplotlib.pylab as plt$/;"	i
+matplotlib	.\NullSpaceSlider.py	/^import matplotlib.spines as sp$/;"	i
+matplotlib	.\toy.py	/^import matplotlib.pylab as plt$/;"	i
+model	.\toy.py	/^model=np.zeros(dims)$/;"	v
+modelmin	.\toy.py	/^modelmin=-2.67$/;"	v
+n	.\toy.py	/^n=10$/;"	v
+n	.\toy.py	/^n=len(xlocs)*len(zlocs)$/;"	v
+noise	.\toy.py	/^noise=np.random.normal(0,sd,n)$/;"	v
+np	.\NullSpaceSlider.py	/^import numpy as np$/;"	i
+np	.\grav.py	/^import numpy as np$/;"	i
+np	.\invert.py	/^import numpy as np$/;"	i
+np	.\toy.py	/^import numpy as np$/;"	i
+ns	.\toy.py	/^import NullSpaceSlider as ns$/;"	i
+nullMat	.\toy.py	/^    nullMat=np.reshape(row,dimsT).T$/;"	v
+nullSpace	.\toy.py	/^nullSpace=[]$/;"	v
+nullVectors	.\toy.py	/^nullVectors=V[-degFreedom:]$/;"	v
+nullres	.\toy.py	/^nullres=np.diag(nullres)$/;"	v
+nullres	.\toy.py	/^nullres=np.dot(Vnull.T,Vnull)$/;"	v
+nullres	.\toy.py	/^nullres=np.reshape(nullres,dimsT).T$/;"	v
+nxcells	.\toy.py	/^nxcells=len(xnodes)-1$/;"	v
+nzcells	.\toy.py	/^nzcells=len(znodes)-1$/;"	v
+plotmat	.\toy.py	/^def plotmat(mat,title,fignum):$/;"	f
+plt	.\NullSpaceSlider.py	/^import matplotlib.pylab as plt$/;"	i
+plt	.\toy.py	/^import matplotlib.pylab as plt$/;"	i
+rMat	.\toy.py	/^    rMat=np.reshape(row,dimsT).T$/;"	v
+rSpace	.\toy.py	/^rSpace=[]$/;"	v
+rank	.\toy.py	/^rank=len(s) #maybe this should be len(s!=0)$/;"	v
+res	.\toy.py	/^res=np.diag(res)$/;"	v
+res	.\toy.py	/^res=np.dot(Vecon.T,Vecon)$/;"	v
+res	.\toy.py	/^res=np.reshape(res,dimsT).T$/;"	v
+resetSliders	.\NullSpaceSlider.py	/^    def resetSliders(self):$/;"	f	function:interactiveModel
+scipy	.\grav.py	/^import scipy.sparse as sparse$/;"	i
+scipy	.\invert.py	/^import scipy.sparse as sparse$/;"	i
+sd	.\toy.py	/^sd=0.2$/;"	v
+sens2d	.\grav.py	/^def sens2d( xnodes,znodes,xlocs,zlocs ):$/;"	f
+sp	.\NullSpaceSlider.py	/^import matplotlib.spines as sp$/;"	i
+spFD1D	.\grav.py	/^def spFD1D(n):$/;"	f
+sparse	.\grav.py	/^import scipy.sparse as sparse$/;"	i
+sparse	.\invert.py	/^import scipy.sparse as sparse$/;"	i
+ssquared	.\toy.py	/^ssquared=s*s$/;"	v
+tikres	.\toy.py	/^tikres=(tikres.T*butterworth).T$/;"	v
+tikres	.\toy.py	/^tikres=V*V$/;"	v
+tikres	.\toy.py	/^tikres=np.reshape(tikres,dimsT).T$/;"	v
+tikres	.\toy.py	/^tikres=np.sum(tikres,0)$/;"	v
+update	.\NullSpaceSlider.py	/^    def update(val):$/;"	f	function:interactiveModel
+xlocs	.\toy.py	/^xlocs=np.linspace(50,750,num=n)$/;"	v
+xnodes	.\toy.py	/^xnodes=np.arange(0,801,200)$/;"	v
+zeroSliders	.\NullSpaceSlider.py	/^    def zeroSliders(self):$/;"	f	function:interactiveModel
+zlocs	.\toy.py	/^zlocs=[-50]$/;"	v
+znodes	.\toy.py	/^znodes=np.arange(0,801,200)$/;"	v
