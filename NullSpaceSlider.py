@@ -95,13 +95,13 @@ def interactiveModel(mat,vectors,singularValues,sens,xnodes,znodes,dataLocations
     
     #set sliders in figure
     for i in range(0,rank):
-        ax0 = plt.axes([0.9-sliderWidth, sliderAxisHeight*(numVectors-i+2), sliderWidth, sliderHeight], axisbg='lightgoldenrodyellow')
+        ax0 = plt.axes([0.9-sliderWidth, sliderAxisHeight*(numVectors-i+2), sliderWidth, sliderHeight], facecolor='lightgoldenrodyellow')
 #        sliders[i]=Slider(ax0,'Vector '+str(i+1),-6,6,valinit=c[i])
         labelstr='s={0:.2g}'.format(singularValues[i])
         sliders[i]=Slider(ax0,labelstr,sliderMin,sliderMax,valinit=c[i])
         sliders[i].on_changed(update)
     for i in range(rank,numVectors):
-        ax0 = plt.axes([0.9-sliderWidth, sliderAxisHeight*(numVectors-i+1), sliderWidth, sliderHeight], axisbg='lightgray')
+        ax0 = plt.axes([0.9-sliderWidth, sliderAxisHeight*(numVectors-i+1), sliderWidth, sliderHeight], facecolor='lightgray')
 #        sliders[i]=Slider(ax0,'Vector '+str(i+1),-6,6,valinit=c[i])
         sliders[i]=Slider(ax0,'s=0',sliderMin,sliderMax,valinit=c[i])
         sliders[i].on_changed(update)

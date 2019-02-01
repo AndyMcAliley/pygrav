@@ -36,10 +36,10 @@ dims=(nzcells,nxcells)
 #xlocs=[290,390,490,590]
 n=10
 xlocs=np.linspace(50,750,num=n)
-zlocs=[-50]
-n=len(xlocs)*len(zlocs)
+zlocs=[-50]*n
+locs = np.array([xlocs,zlocs]).T
 
-Gorig=grav.sens2d(xnodes,znodes,xlocs,zlocs)
+Gorig=grav.sens2d(xnodes,znodes,locs)
 
 #plot sensitivity of model to each datum
 
