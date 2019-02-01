@@ -4,4 +4,6 @@
 *.bmp
 *.png
 *.pyc
+*.swp
+*tags
 __pycache__/*
