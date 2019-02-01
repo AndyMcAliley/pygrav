@@ -7,3 +7,4 @@
 *.swp
 *tags
 __pycache__/*
+*.DS_Store
