@@ -7,12 +7,19 @@ PyGrav is a toy for playing with the 2D gravity problem. It allows you to change
 ### How do I get set up? ###
 
 Get the code:
+```
 git clone https://wmcalile@bitbucket.org/wmcalile/pygrav.git
+```
+
 
 Run the code:
+```
 python toy.py
+```
 
 Use it for gravity modeling:
 copy grav.py to your project
+``` python
 import grav
 G = grav.sens3d(x_nodes,y_nodes,z_nodes,observation_locations)
+```
