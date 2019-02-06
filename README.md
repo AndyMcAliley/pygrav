@@ -23,3 +23,4 @@ copy grav.py to your project
 import grav
 G = grav.sens3d(x_nodes,y_nodes,z_nodes,observation_locations)
 ```
+For more details, see the grav_example.ipynb notebook.
