@@ -9,7 +9,9 @@ import math
 import scipy.sparse as sparse
 import numpy as np
 
-#output in microGals
+#output in milliGals
+#given density in g/cm^3
+#and distances in m
 #NIST
 #gamma=6.67408e-3 # +/- 0.00031
 #CGEM
