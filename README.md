@@ -8,7 +8,7 @@ PyGrav is a toy for playing with the 2D gravity problem. It allows you to change
 
 Get the code:
 ```
-git clone https://wmcalile@bitbucket.org/wmcalile/pygrav.git
+git clone https://github.com/AndyMcAliley/pygrav.git
 ```
 
 
